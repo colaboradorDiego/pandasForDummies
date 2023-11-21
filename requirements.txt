@@ -1,4 +1,5 @@
 pandas
 asyncio
 websockets
+pandastable
 

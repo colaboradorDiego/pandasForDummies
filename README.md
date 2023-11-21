@@ -1,9 +1,14 @@
 # pandasForDummies
-Learning pandas con python
+
+[Pandas](https://pandas.pydata.org/) is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool,
+built on top of the Python programming language.
+
+`pip install pandas`
 
 # Crear DataFrame
 
-La [forma](https://www.geeksforgeeks.org/different-ways-to-create-pandas-dataframe/) mas simple de crear
+Distintas [formas](https://www.geeksforgeeks.org/different-ways-to-create-pandas-dataframe/) de crear un df, ejemplos desde listas, dict, utilizando zip() y desde series.
+
 
 ```
 data = []
@@ -12,49 +17,24 @@ columns = []
 pandas.DataFrame(data, index, columns)
 ```
 
-https://www.alpharithms.com/python-financial-data-491110/
-https://towardsdatascience.com/how-to-store-financial-market-data-for-backtesting-84b95fc016fc
-https://stackoverflow.com/questions/41010937/python-filter-list-of-dictionaries-based-on-multiple-keys
 
-[Pandas](https://pandas.pydata.org/)
+## How do I read and write tabular data?
 
-### Titanic sample data
-
-This tutorial uses the Titanic data set, stored as CSV. The data consists of the following data columns:
-
-| Dato | Detalle |
-| ---- | ------- |
-| PassengerId | Id of every passenger |
-| Survived | This feature have value 0 (not survived) and 1 (survived) |
-| Pclass | There are 3 classes: Class 1, Class 2 and Class 3 |
-| Name | Name of passenger |
-| Sex | Gender of passenger |
-| Age | Age of passenger |
-| SibSp | Indication that passenger have siblings (hemanos) and spouse (conyugue) |
-| Parch | Whether a passenger is alone or have family |
-| Ticket | Ticket number of passenger |
-| Fare | Indicating the fare (tarifa) |
-| Cabin | The cabin of passenger |
-| Embarked | The embarked category |
+## Read & Write from/to Files
+Pandas supports the integration with many file formats or data sources [out of the box](https://pandas.pydata.org/docs/getting_started/intro_tutorials/02_read_write.html#how-do-i-read-and-write-tabular-data) (csv, excel, sql, json, parquet,…). Importing data from each of these data sources is provided by function with the prefix read_. Similarly, the to_ methods are used to store data.
 
 
-### How do I read and write tabular data?
-
-Pandas supports the integration with many file formats or data sources out of the box (csv, excel, sql, json, parquet,…). Importing data from each of these data sources is provided by function with the prefix read_. Similarly, the to_ methods are used to store data.
-
-Asi leemos los datos del csv y creamos un *DataFrame*, aquie el [Tutorial completo](https://pandas.pydata.org/docs/getting_started/intro_tutorials/02_read_write.html#min-tut-02-read-write)
 
 `titanic = pd.read_csv("data/titanic.csv")`
 
 - First & Last 5 rows will be shown by default: `titanic`
 - First 8 rows: `titanic.head(8)`
 - Last 10 rows: `titanic.tail(10)`
+- Titanic dtypes attribute `titanic.dtypes`
+- Titanic technical summary:  `titanic.info()`
 
-Titanic dtypes attribute `titanic.dtypes`
 
-Titanic technical summary:  `titanic.info()`
-
-Tambien podemos exportar el [DataFrame.to_excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html?highlight=dataframe%20to_excel#pandas.DataFrame.to_excel) asi como el [DataFrame.to_json](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_json.html?highlight=dataframe%20to_json#pandas.DataFrame.to_json)
+Tambien podemos exportar hacia excel y json entro otros mas
 
 ```
 titanic.to_excel("titanic.xlsx", sheet_name="passengers", index=False)
@@ -62,6 +42,12 @@ titanic.to_excel("titanic.xlsx", sheet_name="passengers", index=False)
 titanic.to_json("titanic.xlsx", sheet_name="passengers", index=False)
 ```
 
+## Read from list & dict
+
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html
+
+pd.DataFrame.from_dict(data)
+pd.DataFrame.from_dict(data, orient='index')
 
 ### Working with real tima data
 
@@ -88,4 +74,33 @@ titanic.to_json("titanic.xlsx", sheet_name="passengers", index=False)
   "A":"40.66000000"         // best ask qty
 }
 ```
+
+### Financial Data
+
+
+https://www.alpharithms.com/python-financial-data-491110/
+https://towardsdatascience.com/how-to-store-financial-market-data-for-backtesting-84b95fc016fc
+https://stackoverflow.com/questions/41010937/python-filter-list-of-dictionaries-based-on-multiple-keys
+
+
+
+
+### Titanic sample data
+
+This tutorial uses the Titanic data set, stored as CSV. The data consists of the following data columns:
+
+| Dato | Detalle |
+| ---- | ------- |
+| PassengerId | Id of every passenger |
+| Survived | This feature have value 0 (not survived) and 1 (survived) |
+| Pclass | There are 3 classes: Class 1, Class 2 and Class 3 |
+| Name | Name of passenger |
+| Sex | Gender of passenger |
+| Age | Age of passenger |
+| SibSp | Indication that passenger have siblings (hemanos) and spouse (conyugue) |
+| Parch | Whether a passenger is alone or have family |
+| Ticket | Ticket number of passenger |
+| Fare | Indicating the fare (tarifa) |
+| Cabin | The cabin of passenger |
+| Embarked | The embarked category |
 
