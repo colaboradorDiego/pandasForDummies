@@ -24,7 +24,6 @@ pandas.DataFrame(data, index, columns)
 Pandas supports the integration with many file formats or data sources [out of the box](https://pandas.pydata.org/docs/getting_started/intro_tutorials/02_read_write.html#how-do-i-read-and-write-tabular-data) (csv, excel, sql, json, parquet,…). Importing data from each of these data sources is provided by function with the prefix read_. Similarly, the to_ methods are used to store data.
 
 
-
 `titanic = pd.read_csv("data/titanic.csv")`
 
 - First & Last 5 rows will be shown by default: `titanic`
@@ -44,10 +43,15 @@ titanic.to_json("titanic.xlsx", sheet_name="passengers", index=False)
 
 ## Read from list & dict
 
-https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html
+En los ejemplos anteriores levantamos los datos desde archivos, pero tambiem podemos hacerlo [tomando los datos](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html) desde objetos json o listas
 
+El codigo completo lo podemos tomar desde pantas_Table_basico.py
+
+```
 pd.DataFrame.from_dict(data)
 pd.DataFrame.from_dict(data, orient='index')
+```
+
 
 ### Working with real tima data
 

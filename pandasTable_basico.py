@@ -4,8 +4,40 @@ from pandastable import Table, TableModel
 
 class DataSetTasa:
     def __init__(self):
+
+        self.data = {
+            "AL30": {
+            "panel": "Bonos",
+            "especie": "AL30",
+            "precio_cpra": 11198,
+            "precio_vta": 11230,
+            "tasa": 0.286,
+            "ratio": 20000,
+            "cantidad_max_cpra": 20000,
+            "cantidad_max_vta": 1,
+            "min": 0.228,
+            "max": 0.568,
+            "operar": False
+        },
+            "TX24": {
+                "panel": "Bonos",
+                "especie": "TX24",
+                "precio_cpra": 464,
+                "precio_vta": 465,
+                "tasa": 0.216,
+                "ratio": 0.215,
+                "cantidad_max_cpra": 21456,
+                "cantidad_max_vta": 100000,
+                "min": -0.237,
+                "max": 0.411,
+                "operar": True
+            }
+        }
+
         # orient=index toma a las keys como records
-        self.data_df = data_df = pd.read_json("data/tasa.json", orient='index')
+        #self.data_df = pd.read_json("data/tasa.json", orient='index')
+
+        self.data_df = pd.DataFrame.from_dict(self.data, orient='index')
 
     def get_data_frame(self):
         return self.data_df
@@ -35,35 +67,57 @@ class DataSetBonos:
 
 
 class Formulario:
-    def __init__(self, ventana, data):
-        self.ventana = ventana
+    def __init__(self, ventana):
+        self.gui = ventana
 
-        self.ventana_tabla = tk.Frame(ventana, width=600, height=250, bd=2)
-        self.ventana_tabla.place(x=20, y=20)
+        self.frame = tk.Frame(self.gui, width=600, height=250, bd=2)
+        self.frame.place(x=20, y=20)
+
+
+        self.datos = pd.DataFrame()
 
         self.tabla = Table(
-            self.ventana_tabla, dataframe=data,
+            self.frame, dataframe=self.datos,
             showtoolbar=False,
             showstatusbar=True,
             editable=False)
 
+        # call to show
+        self.dibujar()
+
+    def set_data(self, datos):
+        self.datos = datos
+        self.tabla.model.df = datos
+        self.tabla.redraw()
+
+
+    def dibujar(self):
         # PandasTable Show
         self.tabla.show()
+        self.frame.pack(fill='both', expand=True)
 
-        # Frame show
-        self.ventana_tabla.pack(fill='both', expand=True)
+    def cerrar(self):
+        print("entra al cierre por aca")
+        self.gui.destroy()
 
 
-gui = tk.Tk()
 
 def init():
     if __name__ == '__main__':
+        gui = tk.Tk()
         gui.title('PandasTable')
         gui.geometry("800x300")
 
+        # Dataset demostracion
         a = DataSetBonos()
         b = DataSetTasa()
-        f = Formulario(gui, b.get_data_frame())
+
+        # Formularios, Frame
+        f = Formulario(gui)
+
+        gui.protocol("WM_DELETE_WINDOW", f.cerrar)
+
+        f.set_data(b.get_data_frame())
 
         gui.mainloop()
 
